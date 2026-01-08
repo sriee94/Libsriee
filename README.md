@@ -1,12 +1,10 @@
 # 📚 libsriee
 
-**A comprehensive C library** featuring standard functions, string manipulation, memory management, linked lists, get_next_line, and ft_printf.
+**A comprehensive C utility library** featuring string manipulation, memory management, I/O functions, linked lists, get_next_line, and ft_printf implementations.
 
-**Une bibliothèque C complète** comprenant des fonctions standard, manipulation de chaînes, gestion de mémoire, listes chaînées, get_next_line et ft_printf.
+**Une bibliothèque utilitaire C complète** comprenant manipulation de chaînes, gestion mémoire, fonctions I/O, listes chaînées, get_next_line et ft_printf.
 
-Built and maintained by **sriee** as an evolution of the 42 libft project.
-
-Construite et maintenue par **sriee** comme évolution du projet libft de 42.
+Built and maintained by **sriee**
 
 ---
 
@@ -20,113 +18,134 @@ Construite et maintenue par **sriee** comme évolution du projet libft de 42.
 <a name="english"></a>
 # 🇬🇧 English
 
-## 🎯 Features
+## ✨ Features
 
-### Core Functions (libft base)
-- **Character checks**: `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
-- **String manipulation**: `ft_strlen`, `ft_strchr`, `ft_strjoin`, `ft_split`, `ft_substr`, `ft_strtrim`, and more
-- **Memory management**: `ft_memset`, `ft_memcpy`, `ft_memmove`, `ft_calloc`, and more
-- **Conversions**: `ft_atoi`, `ft_itoa`, `ft_toupper`, `ft_tolower`
-- **Output functions**: `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd`
-- **Linked lists**: Complete set of list manipulation functions (`ft_lstnew`, `ft_lstadd_back`, `ft_lstmap`, etc.)
+### Core Functions
+- **Character validation**: `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
+- **String manipulation**: `ft_strlen`, `ft_strcmp`, `ft_strncmp`, `ft_strchr`, `ft_strjoin`, `ft_split`, `ft_substr`, `ft_strtrim`, and more
+- **Memory operations**: `ft_memset`, `ft_memcpy`, `ft_memmove`, `ft_calloc`, `ft_free_split`
+- **Type conversions**: `ft_atoi`, `ft_itoa`, `ft_toupper`, `ft_tolower`
+- **File descriptor output**: `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd`
+- **Linked lists**: Complete toolkit (`ft_lstnew`, `ft_lstadd_back`, `ft_lstmap`, `ft_lstclear`, etc.)
 
 ### Advanced Features
-- **get_next_line**: Read from file descriptors line by line with configurable buffer size
-- **ft_printf**: Custom implementation of printf supporting `%c`, `%s`, `%d`, `%i`, `%u`, `%x`, `%X`, `%p`, `%%`
+- **get_next_line**: Line-by-line file reading with configurable buffer size
+- **ft_printf**: Custom printf implementation supporting `%c`, `%s`, `%d`, `%i`, `%u`, `%x`, `%X`, `%p`, `%%`
 
 ---
 
 ## 📁 Project Structure
 ```
 libsriee/
-├── Makefile
-├── README.md
+├── Makefile                 # Build configuration
+├── README.md               # Documentation
+├── .gitignore              # Git exclusions
 ├── Include/
-│   └── libsriee.h       # Main header file
+│   └── libsriee.h          # Main header file
 ├── Src/
-│   ├── String/          # String manipulation functions
-│   ├── Memory/          # Memory operations
-│   ├── Convert/         # Type conversions
-│   ├── Check/           # Character validation
-│   ├── Output/          # File descriptor output
-│   ├── List/            # Linked list functions
-│   ├── Gnl/             # get_next_line
-│   └── Printf/          # ft_printf implementation
-└── Objs/                # Compiled objects (auto-generated)
+│   ├── String/             # String manipulation
+│   ├── Memory/             # Memory operations & management
+│   ├── Convert/            # Type conversions
+│   ├── Check/              # Character validation
+│   ├── Output/             # File descriptor output
+│   ├── List/               # Linked list operations
+│   ├── Gnl/                # get_next_line implementation
+│   └── Printf/             # ft_printf implementation
+└── Objs/                   # Compiled objects (auto-generated)
 ```
 
 ---
 
-## 🚀 Installation
+## 🚀 Quick Start
 
-### Clone the repository
+### Installation
 ```bash
+# Clone the repository
 git clone https://github.com/sriee94/libsriee.git
 cd libsriee
-```
 
-### Compile the library
-```bash
+# Compile the library
 make
+
+# Clean up (optional)
+make clean      # Remove object files
+make fclean     # Remove everything including libsriee.a
+make re         # Recompile from scratch
 ```
 
-This creates `libsriee.a` in the root directory.
-
-### Clean up
+### Integration
 ```bash
-make clean   # Remove object files
-make fclean  # Remove everything (including libsriee.a)
-make re      # Recompile from scratch
-```
-
----
-
-## 💻 Usage
-
-### In your project
-
-1. **Copy the library** to your project:
-```bash
+# Copy library to your project
 cp libsriee.a /path/to/your/project/
 cp Include/libsriee.h /path/to/your/project/
-```
 
-2. **Include the header** in your C files:
-```c
+# Include in your C file
 #include "libsriee.h"
-```
 
-3. **Compile with the library**:
-```bash
+# Compile with the library
 cc -Wall -Wextra -Werror your_file.c -L. -lsriee -o your_program
 ```
 
-### Example
+---
+
+## 💡 Usage Examples
+
+### Basic String Operations
+```c
+#include "libsriee.h"
+
+int main(void)
+{
+    char **words;
+    
+    // Split string
+    words = ft_split("Hello World Programming", ' ');
+    
+    // Use split results
+    ft_printf("First word: %s\n", words[0]);
+    
+    // Clean up
+    ft_free_split(words);
+    
+    return (0);
+}
+```
+
+### File Reading with get_next_line
 ```c
 #include "libsriee.h"
 #include <fcntl.h>
 
 int main(void)
 {
-    char *str;
     int fd;
-
-    // Using ft_printf
-    ft_printf("Hello %s!\n", "World");
+    char *line;
     
-    // Using get_next_line
     fd = open("file.txt", O_RDONLY);
-    while ((str = get_next_line(fd)))
+    while ((line = get_next_line(fd)))
     {
-        ft_printf("%s", str);
-        free(str);
+        ft_printf("%s", line);
+        free(line);
     }
     close(fd);
     
-    // Using string functions
-    char *joined = ft_strjoin("Hello ", "42!");
-    ft_printf("%s\n", joined);
-    free(joined);
+    return (0);
+}
+```
+
+### Using ft_printf
+```c
+#include "libsriee.h"
+
+int main(void)
+{
+    int num = 42;
+    char *str = "World";
+    
+    ft_printf("Hello %s!\n", str);
+    ft_printf("Number: %d\n", num);
+    ft_printf("Hex: %x\n", num);
+    ft_printf("Pointer: %p\n", &num);
     
     return (0);
 }
@@ -134,40 +153,30 @@ int main(void)
 
 ---
 
-## 🛠️ Customization
-
-### Modify BUFFER_SIZE for get_next_line
-
-Edit `Include/libsriee.h` or compile with:
-```bash
-cc -D BUFFER_SIZE=1024 your_file.c -L. -lsriee
-```
-
-Default is 42, maximum is 8,000,000.
-
----
-
 ## 📖 Function Reference
 
-### String Functions
+### String Functions (15 functions)
+
 | Function | Description |
 |----------|-------------|
 | `ft_strlen` | Calculate string length |
-| `ft_strdup` | Duplicate a string |
-| `ft_strjoin` | Concatenate two strings |
-| `ft_split` | Split string by delimiter |
-| `ft_substr` | Extract substring |
-| `ft_strtrim` | Trim characters from string |
+| `ft_strcmp` | Compare two strings |
+| `ft_strncmp` | Compare strings (n bytes) |
 | `ft_strchr` | Locate character in string |
 | `ft_strrchr` | Locate character from end |
-| `ft_strncmp` | Compare strings (n bytes) |
-| `ft_strnstr` | Locate substring (n bytes) |
+| `ft_strdup` | Duplicate a string |
+| `ft_substr` | Extract substring |
+| `ft_strjoin` | Concatenate two strings |
+| `ft_strtrim` | Trim characters from string |
+| `ft_split` | Split string by delimiter |
 | `ft_strlcpy` | Size-bounded string copy |
-| `ft_strlcat` | Size-bounded string concatenation |
+| `ft_strlcat` | Size-bounded concatenation |
+| `ft_strnstr` | Locate substring (n bytes) |
 | `ft_strmapi` | Apply function to string |
 | `ft_striteri` | Iterate over string with function |
 
-### Memory Functions
+### Memory Functions (8 functions)
+
 | Function | Description |
 |----------|-------------|
 | `ft_memset` | Fill memory with constant byte |
@@ -177,16 +186,19 @@ Default is 42, maximum is 8,000,000.
 | `ft_memchr` | Scan memory for character |
 | `ft_memcmp` | Compare memory areas |
 | `ft_calloc` | Allocate and zero memory |
+| `ft_free_split` | Free split array |
 
-### Conversion Functions
+### Conversion Functions (4 functions)
+
 | Function | Description |
 |----------|-------------|
-| `ft_atoi` | Convert string to integer |
-| `ft_itoa` | Convert integer to string |
+| `ft_atoi` | String to integer |
+| `ft_itoa` | Integer to string |
 | `ft_toupper` | Convert to uppercase |
 | `ft_tolower` | Convert to lowercase |
 
-### Character Check Functions
+### Character Check Functions (5 functions)
+
 | Function | Description |
 |----------|-------------|
 | `ft_isalpha` | Check if alphabetic |
@@ -195,7 +207,8 @@ Default is 42, maximum is 8,000,000.
 | `ft_isascii` | Check if ASCII |
 | `ft_isprint` | Check if printable |
 
-### Output Functions
+### Output Functions (5 functions)
+
 | Function | Description |
 |----------|-------------|
 | `ft_printf` | Formatted output to stdout |
@@ -205,7 +218,8 @@ Default is 42, maximum is 8,000,000.
 | `ft_putendl_fd` | Output string + newline to fd |
 | `ft_putnbr_fd` | Output number to fd |
 
-### Linked List Functions
+### Linked List Functions (9 functions)
+
 | Function | Description |
 |----------|-------------|
 | `ft_lstnew` | Create new list element |
@@ -218,35 +232,49 @@ Default is 42, maximum is 8,000,000.
 | `ft_lstiter` | Iterate with function |
 | `ft_lstmap` | Map function to new list |
 
-*See `Include/libsriee.h` for complete function list and prototypes.*
+**Total: 51 functions**
+
+*Complete prototypes in `Include/libsriee.h`*
+
+---
+
+## ⚙️ Configuration
+
+### Modify BUFFER_SIZE for get_next_line
+
+Edit `Include/libsriee.h` or compile with:
+```bash
+cc -D BUFFER_SIZE=1024 your_file.c -L. -lsriee
+```
+
+- **Default**: 42
+- **Maximum**: 8,000,000
 
 ---
 
 ## 🎓 About
 
-This library started as the **42 libft project** and has evolved into a comprehensive toolkit used across multiple projects including:
-- **get_next_line**
-- **ft_printf**
-- **pipex**
-- **minishell**
-- **push_swap**
-- And more to come...
+This library is a comprehensive C utility toolkit used across multiple projects including:
 
-Built with **clean code principles**, **Norminette compliance**, and **optimization** in mind.
+- ✅ **get_next_line**
+- ✅ **ft_printf**
+- ✅ **pipex**
+- ✅ **minishell**
+- ✅ **push_swap**
+- 🚧 And more to come...
 
----
-
-## 📜 License
-
-This project is part of the 42 curriculum. Feel free to use and modify for educational purposes.
+**Built with:**
+- Clean code principles
+- Memory safety
+- Performance optimization
+- Modularity and reusability
 
 ---
 
 ## 👤 Author
 
-**sriee** - [GitHub](https://github.com/sriee94)
-
-*42 Belgium - 2025*
+**sriee**  
+[GitHub](https://github.com/sriee94) | Belgium - 2025
 
 ---
 
@@ -267,113 +295,134 @@ This project is part of the 42 curriculum. Feel free to use and modify for educa
 <a name="français"></a>
 # 🇫🇷 Français
 
-## 🎯 Fonctionnalités
+## ✨ Fonctionnalités
 
-### Fonctions de base (libft)
-- **Vérification de caractères**: `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
-- **Manipulation de chaînes**: `ft_strlen`, `ft_strchr`, `ft_strjoin`, `ft_split`, `ft_substr`, `ft_strtrim`, et plus
-- **Gestion de mémoire**: `ft_memset`, `ft_memcpy`, `ft_memmove`, `ft_calloc`, et plus
-- **Conversions**: `ft_atoi`, `ft_itoa`, `ft_toupper`, `ft_tolower`
-- **Fonctions de sortie**: `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd`
-- **Listes chaînées**: Ensemble complet de fonctions (`ft_lstnew`, `ft_lstadd_back`, `ft_lstmap`, etc.)
+### Fonctions de base
+- **Validation de caractères**: `ft_isalpha`, `ft_isdigit`, `ft_isalnum`, `ft_isascii`, `ft_isprint`
+- **Manipulation de chaînes**: `ft_strlen`, `ft_strcmp`, `ft_strncmp`, `ft_strchr`, `ft_strjoin`, `ft_split`, `ft_substr`, `ft_strtrim`, et plus
+- **Opérations mémoire**: `ft_memset`, `ft_memcpy`, `ft_memmove`, `ft_calloc`, `ft_free_split`
+- **Conversions de types**: `ft_atoi`, `ft_itoa`, `ft_toupper`, `ft_tolower`
+- **Sortie sur descripteur**: `ft_putchar_fd`, `ft_putstr_fd`, `ft_putendl_fd`, `ft_putnbr_fd`
+- **Listes chaînées**: Boîte à outils complète (`ft_lstnew`, `ft_lstadd_back`, `ft_lstmap`, `ft_lstclear`, etc.)
 
 ### Fonctionnalités avancées
-- **get_next_line**: Lecture ligne par ligne depuis des descripteurs de fichiers avec taille de buffer configurable
-- **ft_printf**: Implémentation personnalisée de printf supportant `%c`, `%s`, `%d`, `%i`, `%u`, `%x`, `%X`, `%p`, `%%`
+- **get_next_line**: Lecture ligne par ligne avec buffer configurable
+- **ft_printf**: Implémentation personnalisée supportant `%c`, `%s`, `%d`, `%i`, `%u`, `%x`, `%X`, `%p`, `%%`
 
 ---
 
 ## 📁 Structure du projet
 ```
 libsriee/
-├── Makefile
-├── README.md
+├── Makefile                 # Configuration de compilation
+├── README.md               # Documentation
+├── .gitignore              # Exclusions Git
 ├── Include/
-│   └── libsriee.h       # Fichier d'en-tête principal
+│   └── libsriee.h          # Fichier d'en-tête principal
 ├── Src/
-│   ├── String/          # Fonctions de manipulation de chaînes
-│   ├── Memory/          # Opérations mémoire
-│   ├── Convert/         # Conversions de types
-│   ├── Check/           # Validation de caractères
-│   ├── Output/          # Sortie sur descripteur de fichier
-│   ├── List/            # Fonctions de listes chaînées
-│   ├── Gnl/             # get_next_line
-│   └── Printf/          # Implémentation de ft_printf
-└── Objs/                # Objets compilés (auto-généré)
+│   ├── String/             # Manipulation de chaînes
+│   ├── Memory/             # Opérations & gestion mémoire
+│   ├── Convert/            # Conversions de types
+│   ├── Check/              # Validation de caractères
+│   ├── Output/             # Sortie sur descripteur
+│   ├── List/               # Opérations sur listes chaînées
+│   ├── Gnl/                # Implémentation get_next_line
+│   └── Printf/             # Implémentation ft_printf
+└── Objs/                   # Objets compilés (auto-généré)
 ```
 
 ---
 
-## 🚀 Installation
+## 🚀 Démarrage rapide
 
-### Cloner le dépôt
+### Installation
 ```bash
+# Cloner le dépôt
 git clone https://github.com/sriee94/libsriee.git
 cd libsriee
-```
 
-### Compiler la bibliothèque
-```bash
+# Compiler la bibliothèque
 make
+
+# Nettoyage (optionnel)
+make clean      # Supprimer les fichiers objets
+make fclean     # Tout supprimer y compris libsriee.a
+make re         # Recompiler depuis zéro
 ```
 
-Cela crée `libsriee.a` dans le répertoire racine.
-
-### Nettoyage
+### Intégration
 ```bash
-make clean   # Supprimer les fichiers objets
-make fclean  # Tout supprimer (y compris libsriee.a)
-make re      # Recompiler depuis zéro
-```
-
----
-
-## 💻 Utilisation
-
-### Dans votre projet
-
-1. **Copier la bibliothèque** dans votre projet:
-```bash
+# Copier la bibliothèque dans votre projet
 cp libsriee.a /chemin/vers/votre/projet/
 cp Include/libsriee.h /chemin/vers/votre/projet/
-```
 
-2. **Inclure le header** dans vos fichiers C:
-```c
+# Inclure dans votre fichier C
 #include "libsriee.h"
-```
 
-3. **Compiler avec la bibliothèque**:
-```bash
+# Compiler avec la bibliothèque
 cc -Wall -Wextra -Werror votre_fichier.c -L. -lsriee -o votre_programme
 ```
 
-### Exemple
+---
+
+## 💡 Exemples d'utilisation
+
+### Opérations sur chaînes
+```c
+#include "libsriee.h"
+
+int main(void)
+{
+    char **mots;
+    
+    // Diviser une chaîne
+    mots = ft_split("Bonjour Monde Programmation", ' ');
+    
+    // Utiliser les résultats
+    ft_printf("Premier mot: %s\n", mots[0]);
+    
+    // Nettoyage
+    ft_free_split(mots);
+    
+    return (0);
+}
+```
+
+### Lecture de fichier avec get_next_line
 ```c
 #include "libsriee.h"
 #include <fcntl.h>
 
 int main(void)
 {
-    char *str;
     int fd;
-
-    // Utilisation de ft_printf
-    ft_printf("Bonjour %s!\n", "Monde");
+    char *ligne;
     
-    // Utilisation de get_next_line
     fd = open("fichier.txt", O_RDONLY);
-    while ((str = get_next_line(fd)))
+    while ((ligne = get_next_line(fd)))
     {
-        ft_printf("%s", str);
-        free(str);
+        ft_printf("%s", ligne);
+        free(ligne);
     }
     close(fd);
     
-    // Utilisation des fonctions de chaînes
-    char *joined = ft_strjoin("Bonjour ", "42!");
-    ft_printf("%s\n", joined);
-    free(joined);
+    return (0);
+}
+```
+
+### Utilisation de ft_printf
+```c
+#include "libsriee.h"
+
+int main(void)
+{
+    int num = 42;
+    char *str = "Monde";
+    
+    ft_printf("Bonjour %s!\n", str);
+    ft_printf("Nombre: %d\n", num);
+    ft_printf("Hex: %x\n", num);
+    ft_printf("Pointeur: %p\n", &num);
     
     return (0);
 }
@@ -381,59 +430,52 @@ int main(void)
 
 ---
 
-## 🛠️ Personnalisation
-
-### Modifier BUFFER_SIZE pour get_next_line
-
-Éditez `Include/libsriee.h` ou compilez avec:
-```bash
-cc -D BUFFER_SIZE=1024 votre_fichier.c -L. -lsriee
-```
-
-Par défaut: 42, maximum: 8 000 000.
-
----
-
 ## 📖 Référence des fonctions
 
-### Fonctions de chaînes
+### Fonctions de chaînes (15 fonctions)
+
 | Fonction | Description |
 |----------|-------------|
 | `ft_strlen` | Calculer la longueur d'une chaîne |
-| `ft_strdup` | Dupliquer une chaîne |
-| `ft_strjoin` | Concaténer deux chaînes |
-| `ft_split` | Diviser une chaîne par délimiteur |
-| `ft_substr` | Extraire une sous-chaîne |
-| `ft_strtrim` | Enlever des caractères d'une chaîne |
-| `ft_strchr` | Localiser un caractère dans une chaîne |
-| `ft_strrchr` | Localiser un caractère depuis la fin |
+| `ft_strcmp` | Comparer deux chaînes |
 | `ft_strncmp` | Comparer des chaînes (n octets) |
+| `ft_strchr` | Localiser un caractère |
+| `ft_strrchr` | Localiser depuis la fin |
+| `ft_strdup` | Dupliquer une chaîne |
+| `ft_substr` | Extraire une sous-chaîne |
+| `ft_strjoin` | Concaténer deux chaînes |
+| `ft_strtrim` | Enlever des caractères |
+| `ft_split` | Diviser par délimiteur |
+| `ft_strlcpy` | Copie limitée en taille |
+| `ft_strlcat` | Concaténation limitée |
 | `ft_strnstr` | Localiser une sous-chaîne (n octets) |
-| `ft_strlcpy` | Copie de chaîne limitée en taille |
-| `ft_strlcat` | Concaténation limitée en taille |
-| `ft_strmapi` | Appliquer une fonction à une chaîne |
-| `ft_striteri` | Itérer sur une chaîne avec fonction |
+| `ft_strmapi` | Appliquer une fonction |
+| `ft_striteri` | Itérer avec fonction |
 
-### Fonctions mémoire
+### Fonctions mémoire (8 fonctions)
+
 | Fonction | Description |
 |----------|-------------|
-| `ft_memset` | Remplir la mémoire avec un octet constant |
-| `ft_bzero` | Mettre à zéro une chaîne d'octets |
-| `ft_memcpy` | Copier une zone mémoire |
-| `ft_memmove` | Copier la mémoire (gère les chevauchements) |
-| `ft_memchr` | Rechercher un caractère en mémoire |
-| `ft_memcmp` | Comparer des zones mémoire |
-| `ft_calloc` | Allouer et mettre à zéro la mémoire |
+| `ft_memset` | Remplir la mémoire |
+| `ft_bzero` | Mettre à zéro |
+| `ft_memcpy` | Copier la mémoire |
+| `ft_memmove` | Copier (gère chevauchements) |
+| `ft_memchr` | Rechercher un caractère |
+| `ft_memcmp` | Comparer des zones |
+| `ft_calloc` | Allouer et initialiser |
+| `ft_free_split` | Libérer un tableau split |
 
-### Fonctions de conversion
+### Fonctions de conversion (4 fonctions)
+
 | Fonction | Description |
 |----------|-------------|
-| `ft_atoi` | Convertir chaîne en entier |
-| `ft_itoa` | Convertir entier en chaîne |
-| `ft_toupper` | Convertir en majuscule |
-| `ft_tolower` | Convertir en minuscule |
+| `ft_atoi` | Chaîne vers entier |
+| `ft_itoa` | Entier vers chaîne |
+| `ft_toupper` | Vers majuscule |
+| `ft_tolower` | Vers minuscule |
 
-### Fonctions de vérification
+### Fonctions de vérification (5 fonctions)
+
 | Fonction | Description |
 |----------|-------------|
 | `ft_isalpha` | Vérifier si alphabétique |
@@ -442,58 +484,74 @@ Par défaut: 42, maximum: 8 000 000.
 | `ft_isascii` | Vérifier si ASCII |
 | `ft_isprint` | Vérifier si imprimable |
 
-### Fonctions de sortie
-| Fonction | Description |
-|----------|-------------|
-| `ft_printf` | Sortie formatée vers stdout |
-| `get_next_line` | Lire une ligne depuis un descripteur |
-| `ft_putchar_fd` | Afficher un caractère sur fd |
-| `ft_putstr_fd` | Afficher une chaîne sur fd |
-| `ft_putendl_fd` | Afficher chaîne + retour ligne sur fd |
-| `ft_putnbr_fd` | Afficher un nombre sur fd |
+### Fonctions de sortie (5 fonctions)
 
-### Fonctions de listes chaînées
 | Fonction | Description |
 |----------|-------------|
-| `ft_lstnew` | Créer un nouvel élément |
-| `ft_lstadd_front` | Ajouter en début |
-| `ft_lstadd_back` | Ajouter en fin |
+| `ft_printf` | Sortie formatée |
+| `get_next_line` | Lire une ligne |
+| `ft_putchar_fd` | Afficher un caractère |
+| `ft_putstr_fd` | Afficher une chaîne |
+| `ft_putendl_fd` | Afficher avec retour ligne |
+| `ft_putnbr_fd` | Afficher un nombre |
+
+### Fonctions de listes (9 fonctions)
+
+| Fonction | Description |
+|----------|-------------|
+| `ft_lstnew` | Créer un élément |
+| `ft_lstadd_front` | Ajouter au début |
+| `ft_lstadd_back` | Ajouter à la fin |
 | `ft_lstsize` | Compter les éléments |
-| `ft_lstlast` | Obtenir le dernier élément |
+| `ft_lstlast` | Obtenir le dernier |
 | `ft_lstdelone` | Supprimer un élément |
-| `ft_lstclear` | Supprimer tous les éléments |
+| `ft_lstclear` | Supprimer tous |
 | `ft_lstiter` | Itérer avec fonction |
-| `ft_lstmap` | Mapper fonction vers nouvelle liste |
+| `ft_lstmap` | Mapper vers nouvelle liste |
 
-*Voir `Include/libsriee.h` pour la liste complète des fonctions et prototypes.*
+**Total: 51 fonctions**
+
+*Prototypes complets dans `Include/libsriee.h`*
+
+---
+
+## ⚙️ Configuration
+
+### Modifier BUFFER_SIZE pour get_next_line
+
+Éditez `Include/libsriee.h` ou compilez avec:
+```bash
+cc -D BUFFER_SIZE=1024 votre_fichier.c -L. -lsriee
+```
+
+- **Défaut**: 42
+- **Maximum**: 8 000 000
 
 ---
 
 ## 🎓 À propos
 
-Cette bibliothèque a commencé comme le **projet libft de 42** et a évolué en une boîte à outils complète utilisée dans plusieurs projets:
-- **get_next_line**
-- **ft_printf**
-- **pipex**
-- **minishell**
-- **push_swap**
-- Et d'autres à venir...
+Cette bibliothèque est une boîte à outils utilitaire C complète utilisée dans plusieurs projets:
 
-Construite avec les principes du **code propre**, la **conformité Norminette** et l'**optimisation** à l'esprit.
+- ✅ **get_next_line**
+- ✅ **ft_printf**
+- ✅ **pipex**
+- ✅ **minishell**
+- ✅ **push_swap**
+- 🚧 Et d'autres à venir...
 
----
-
-## 📜 Licence
-
-Ce projet fait partie du cursus 42. N'hésitez pas à l'utiliser et le modifier à des fins éducatives.
+**Construite avec:**
+- Principes de code propre
+- Sécurité mémoire
+- Optimisation des performances
+- Modularité et réutilisabilité
 
 ---
 
 ## 👤 Auteur
 
-**sriee** - [GitHub](https://github.com/sriee94)
-
-*42 Belgium - 2025*
+**sriee**  
+[GitHub](https://github.com/sriee94) | Belgique - 2025
 
 ---
 
